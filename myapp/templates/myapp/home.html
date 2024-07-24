@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Loja Virtual</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/styles.css' %}">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+  <nav class="navbar navbar-expand-lg">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Categorias
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="?categoria=celular">Celulares</a>
+            <a class="dropdown-item" href="?categoria=tablet">Tablets</a>
+            <a class="dropdown-item" href="?categoria=notebook">Notebooks</a>
+            <a class="dropdown-item" href="?categoria=teclado">Teclados</a>
+            <a class="dropdown-item" href="?categoria=acessorio">Acessórios</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cart">
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart"
+        viewBox="0 0 16 16" href="#" class="nav-link">
+        <path
+          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+      </svg>
+
+    </div>
+  </nav>
+
+
+  <div class="conteudo">
+    <div class="container">
+      <div class="card-container">
+        {% for produto in produtos %}
+        <a href="{% url 'produto_detalhes' produto.id %}" class="card-link"> <!-- Link para a página de detalhes -->
+
+          <div class="card">
+
+            {% if produto.imagem %}
+            <div class="imagem">
+              <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
+            </div>
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ produto.nome }}</h5>
+              <p class="card-text">R${{ produto.preco }}</p>
+              <div class="botao">
+                <button class="btn-comprar">Adicionar ao carrinho
+      </div>
+    </div>
+
+  </div>
+  </a>
+  {% endfor %}
+  </div>
+  </div>
+
+
+  <div class="menu-lateral">
+    <p>Busque pelo produto desejado:</p>
+    <form class="form" method="get" action="{% url 'home' %}">
+      <input class="form-control" name="query" type="search" placeholder="Buscar por..." aria-label="Search">
+      <button class="btn-pesquisa" type="submit">Buscar</button>
+    </form>
+  </div>
+
+  </div>
+
+  <!-- Inclua o jQuery completo -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!-- Inclua o Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <!-- Inclua o JavaScript do Bootstrap -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Inclua seu próprio JavaScript, se necessário -->
+  <script src="{% static 'myapp/js/scripts.js' %}"></script>
+
+
+</body>
+
+</html>

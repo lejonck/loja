@@ -1,0 +1,142 @@
+body {
+    background-color: #08313A !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.nav {
+    height: 30%;
+    width: 90%;
+    /*ver necessidade*/
+    align-items: center;
+    justify-content: space-around;
+}
+
+.nav-link {
+    color: #5cd85a;
+}
+
+p {
+    font-weight: 700;
+}
+
+.cart {
+    color: #5cd85a !important;
+    ;
+}
+
+.menu-lateral {
+    margin-top: 30px;
+    padding: 2%;
+    border: 1px;
+    border-radius: 1%;
+    background-color: #5cd85a;
+    width: 25%;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.conteudo {
+    display: flex;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: auto;
+}
+
+.card {
+    width: 17rem;
+    height: 20rem;
+    margin: 30px 1rem 1rem 1rem;
+    border-radius: 7% !important;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(105, 221, 144, 0.205), 0 6px 20px 0 rgba(105, 221, 144, 0.26);
+
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.produto-dets {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow: hidden;
+    font-weight: 600;
+}
+
+.card img {
+    margin-top: 5%;
+    width: 50%;
+    height: 90%;
+}
+
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.imagem-prod {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.botao {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-comprar {
+    border: solid 2px;
+    border-radius: 35px;
+    color: #5CD85A;
+    border-color: #5CD85A;
+    font-size: 14;
+    font-weight: 700;
+    width: fit-content;
+    padding: 4%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    padding-top: none;
+}
+
+.btn-pesquisa {
+    border: solid 2px;
+    padding: 3%;
+    font-size: small;
+    background-color: #08313A;
+    border-color: #08313A;
+    color: white;
+    border-radius: 35px;
+}
+
+.form-control {
+    display: flex;
+    width: 90%;
+    margin: 2%;
+}

@@ -1,0 +1,20 @@
+# Ambiente virtual
+amb-virt-loja/
+env/
+.venv/
+env/
+
+# Arquivos de compilação
+__pycache__/
+*.pyc
+
+# Arquivos de configuração
+.DS_Store
+.vscode/
+.idea/
+
+# Configurações de sistema
+*.sqlite3
+
+# Arquivos do Django
+/static/
