@@ -40,23 +40,26 @@
         </li>
       </ul>
     </div>
-    <div class="cart">
-      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart"
-        viewBox="0 0 16 16" href="#" class="nav-link">
-        <path
-          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-      </svg>
-
-    </div>
+      <div class="cart">
+        <a href="{% url 'carrinho' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#5cd85a" class="bi bi-cart"
+          viewBox="0 0 16 16" class="nav-link">
+          <path
+            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+        </svg>
+        </a>
+      </div>
   </nav>
 
 
   <div class="conteudo">
     <div class="container">
+      {% if not tem_produtos %}
+                    <h1 style="color: #ccc; font-weight: 300; margin-top: 30px;">Nenhum produto encontrado.</h1>
+                {% else %}
       <div class="card-container">
         {% for produto in produtos %}
-        <a href="{% url 'produto_detalhes' produto.id %}" class="card-link"> <!-- Link para a página de detalhes -->
-
+        <a href="{% url 'produto_detalhes' produto.id %}" class="card-link"> 
           <div class="card">
 
             {% if produto.imagem %}
@@ -68,7 +71,7 @@
               <h5 class="card-title">{{ produto.nome }}</h5>
               <p class="card-text">R${{ produto.preco }}</p>
               <div class="botao">
-                <button class="btn-comprar">Adicionar ao carrinho
+                <a href="{% url 'adicionar_ao_carrinho' produto.id %}" class="btn-comprar">Adicionar ao carrinho</a>
       </div>
     </div>
 
@@ -76,6 +79,7 @@
   </a>
   {% endfor %}
   </div>
+  {% endif %}
   </div>
 
 
@@ -85,17 +89,14 @@
       <input class="form-control" name="query" type="search" placeholder="Buscar por..." aria-label="Search">
       <button class="btn-pesquisa" type="submit">Buscar</button>
     </form>
+    <p>Filtrar por:</p>
   </div>
 
   </div>
 
-  <!-- Inclua o jQuery completo -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <!-- Inclua o Popper.js -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <!-- Inclua o JavaScript do Bootstrap -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <!-- Inclua seu próprio JavaScript, se necessário -->
   <script src="{% static 'myapp/js/scripts.js' %}"></script>
 
 

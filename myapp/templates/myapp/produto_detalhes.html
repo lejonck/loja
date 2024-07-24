@@ -40,31 +40,26 @@
 
  
   <div class="container">
-    <h1>{{ produto.nome }}</h1>
+    <h1 style="color:antiquewhite; margin:3%;">{{ produto.nome }}</h1>
     
         <div class="produto-dets">
         {% if produto.imagem %}
         <div class="imagem-prod">
-            <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}" style="width: 200px; height: 250px;">
+            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" style="width: 200px; height: 250px;">
           </div>        
         {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">{{ produto.nome }}</h5>
-            <p class="card-text">R${{ produto.preco }}</p>
-            <p class="card-text">{{produto.descricao}}</p>
-            
-        </div>
-    
+        <div class="info-body">
+            <p class="product-price">R${{ produto.preco }}</p>
+            <p class="product-description">{{produto.descricao}}</p>  
+          <a href="{% url 'adicionar_ao_carrinho' produto.id %}" class="btn-comprar">Adicionar ao carrinho</a>
+        </div>  
 </div>
 </div>
 
-  <!-- Inclua o jQuery completo -->
+
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <!-- Inclua o Popper.js -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <!-- Inclua o JavaScript do Bootstrap -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <!-- Inclua seu próprio JavaScript, se necessário -->
   <script src="{% static 'myapp/js/scripts.js' %}"></script>
 
 
