@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmação de Pedido</title>
+    <link href="https://stackpath.bootstrap.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Pedido Realizado com Sucesso!</h1>
+        <p>Seu pedido foi realizado com sucesso e está sendo processado.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Voltar para a Loja</a>
+    </div>
+</body>
+</html>

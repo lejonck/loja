@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-
-from .models import Produto
-
+from django.db import transaction
+from .models import Produto, Pedido, ItemPedido
 from django.shortcuts import render, get_object_or_404
 
 def home_view(request):
@@ -57,3 +56,40 @@ def remover_do_carrinho(request, produto_id):
     carrinho.pop(str(produto_id), None)
     request.session['carrinho'] = carrinho
     return redirect('carrinho')
+
+@transaction.atomic
+def finalizar_pedido(request):
+    if request.method == 'POST':
+        carrinho = request.session.get('carrinho', {})
+        if not carrinho:
+            return redirect('carrinho')
+
+        # Calcular o total do pedido
+        total = 0
+        for produto_id, quantidade in carrinho.items():
+            produto = Produto.objects.get(id=produto_id)
+            total += produto.preco * quantidade
+
+        # Criar o pedido
+        pedido = Pedido.objects.create(total=total)
+
+        # Criar os itens do pedido
+        for produto_id, quantidade in carrinho.items():
+            produto = Produto.objects.get(id=produto_id)
+            ItemPedido.objects.create(
+                pedido=pedido,
+                produto=produto,
+                quantidade=quantidade,
+                preco=produto.preco
+            )
+
+        # Limpar o carrinho
+        request.session['carrinho'] = {}
+
+        # Redirecionar para uma página de confirmação
+        return redirect('confirmacao_pedido')
+
+    return redirect('carrinho')
+
+def confirmacao_pedido(request):
+    return render(request, 'myapp/confirmacao_pedido.html')

@@ -52,8 +52,11 @@
             </tbody>
         </table>
         <div class="button-cart">
-        <a href="{% url 'home' %}" class="btn-cart">Continuar Comprando</a>
-        <a href="{% url 'home' %}" class="btn-cart" onclick="showAlert()">Finalizar</a>
+            <a href="{% url 'home' %}" class="btn-cart">Continuar Comprando</a>
+            <form method="post" action="{% url 'finalizar_pedido' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-cart" onclick="showAlert()">Finalizar</button>
+            </form>
         </div>
     </div>
 
