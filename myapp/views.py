@@ -3,19 +3,31 @@ from django.db import transaction
 from .models import Produto, Pedido, ItemPedido
 from django.shortcuts import render, get_object_or_404
 
+
+# As function-based views recebem um HTTP request como entrada e devolvem um HTTP response
+
 def home_view(request):
-    # Filtra produtos por categoria se o parâmetro de categoria estiver presente na URL
     categoria = request.GET.get('categoria')
     query = request.GET.get('query')
+    marcas = request.GET.getlist('marcas')
+    preco_max = request.GET.get('preco_max')
+
+    produtos = Produto.objects.all()
+    marcas_unicas = list(set(marcas))
+    
+    contagem_marcas = {marca: marcas.count(marca) for marca in marcas_unicas}
+    marcas_impares = [marca for marca, contagem in contagem_marcas.items() if contagem % 2 != 0]
+
     if categoria:
-        produtos = Produto.objects.filter(categoria=categoria)     
-    elif query:
-        produtos = Produto.objects.filter(nome__icontains=query)
-    else:
-        produtos = Produto.objects.all()
+        produtos = produtos.filter(categoria=categoria)     
+    if query:
+        produtos = produtos.filter(nome__icontains=query)
+    if preco_max:
+        produtos = produtos.filter(preco__lte=preco_max)
+    if marcas:  
+        produtos = produtos.filter(marca__in=marcas_impares)   
     
-    
-    return render(request, 'myapp/home.html', {'produtos': produtos, 'tem_produtos': produtos.exists()})
+    return render(request, 'myapp/home.html', {'produtos': produtos, 'tem_produtos': produtos.exists(), 'marcas_selecionadas' : marcas_impares})
 
 def produto_detalhes_view(request, produto_id):
     produto = get_object_or_404(Produto, id=produto_id)
@@ -64,16 +76,16 @@ def finalizar_pedido(request):
         if not carrinho:
             return redirect('carrinho')
 
-        # Calcular o total do pedido
+        
         total = 0
         for produto_id, quantidade in carrinho.items():
             produto = Produto.objects.get(id=produto_id)
             total += produto.preco * quantidade
 
-        # Criar o pedido
+        
         pedido = Pedido.objects.create(total=total)
 
-        # Criar os itens do pedido
+        
         for produto_id, quantidade in carrinho.items():
             produto = Produto.objects.get(id=produto_id)
             ItemPedido.objects.create(
@@ -83,10 +95,10 @@ def finalizar_pedido(request):
                 preco=produto.preco
             )
 
-        # Limpar o carrinho
+        
         request.session['carrinho'] = {}
 
-        # Redirecionar para uma página de confirmação
+        
         return redirect('confirmacao_pedido')
 
     return redirect('carrinho')

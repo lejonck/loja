@@ -3,7 +3,8 @@
 <html>
 
 <head>
-  <title>Loja Virtual</title>
+  <title>Grace Eletrônicos </title>
+  <link rel="icon" type="image/x-icon" href="{% static 'myapp/images/faviconLoja.png' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/styles.css' %}">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,89 +16,135 @@
 
 
   <nav class="navbar navbar-expand-lg">
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Categorias
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="?categoria=celular">Celulares</a>
-            <a class="dropdown-item" href="?categoria=tablet">Tablets</a>
-            <a class="dropdown-item" href="?categoria=notebook">Notebooks</a>
-            <a class="dropdown-item" href="?categoria=teclado">Teclados</a>
-            <a class="dropdown-item" href="?categoria=acessorio">Acessórios</a>
-          </div>
-        </li>
-      </ul>
+    <div class="elem-direita">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'myapp/images/logoLoja.png' %}" width="220" height="100" alt="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Categorias
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="?categoria=celular">Celulares</a>
+              <a class="dropdown-item" href="?categoria=tablet">Tablets</a>
+              <a class="dropdown-item" href="?categoria=notebook">Notebooks</a>
+              <a class="dropdown-item" href="?categoria=teclado">Teclados</a>
+              <a class="dropdown-item" href="?categoria=acessorio">Acessórios</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-      <div class="cart">
-        <a href="{% url 'carrinho' %}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#5cd85a" class="bi bi-cart"
-          viewBox="0 0 16 16" class="nav-link">
+    <div class="cart">
+      <a href="{% url 'carrinho' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-cart" viewBox="0 0 16 16">
           <path
             d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
         </svg>
-        </a>
-      </div>
+      </a>
+    </div>
   </nav>
-
 
   <div class="conteudo">
     <div class="container">
       {% if not tem_produtos %}
-                    <h1 style="color: #ccc; font-weight: 300; margin-top: 30px;">Nenhum produto encontrado.</h1>
-                {% else %}
+      <h1 style="color: #ccc; font-weight: 300; margin-top: 30px;">Nenhum produto encontrado.</h1>
+      {% else %}
       <div class="card-container">
         {% for produto in produtos %}
-        <a href="{% url 'produto_detalhes' produto.id %}" class="card-link"> 
+        <a href="{% url 'produto_detalhes' produto.id %}" class="card-link">
           <div class="card">
 
             {% if produto.imagem %}
-            <div class="imagem">
+            <div class="imagem-container">
               <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}">
             </div>
             {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ produto.nome }}</h5>
               <p class="card-text">R${{ produto.preco }}</p>
-              <div class="botao">
+              <div class="btn-card">
                 <a href="{% url 'adicionar_ao_carrinho' produto.id %}" class="btn-comprar">Adicionar ao carrinho</a>
+              </div>
+            </div>
+
+          </div>
+        </a>
+        {% endfor %}
       </div>
+      {% endif %}
     </div>
 
-  </div>
-  </a>
-  {% endfor %}
-  </div>
-  {% endif %}
-  </div>
 
+    <div class="menu-lateral">
+      <p style="font-size: 120%;">Busque pelo produto desejado:</p>
+      <form class="form" method="get" action="{% url 'home' %}">
+        <input class="form-control" name="query" type="search" placeholder="Buscar por..." aria-label="Search">
+        <button class="btn-pesquisa" type="submit">Buscar</button>
+      </form>
+      <p style="font-size: 120%;">Filtrar por:</p>
 
-  <div class="menu-lateral">
-    <p>Busque pelo produto desejado:</p>
-    <form class="form" method="get" action="{% url 'home' %}">
-      <input class="form-control" name="query" type="search" placeholder="Buscar por..." aria-label="Search">
-      <button class="btn-pesquisa" type="submit">Buscar</button>
-    </form>
-    <p>Filtrar por:</p>
-  </div>
+      <form id="filter-form" method="get" action="{% url 'home' %}">
+        <p>Preço</p>
+        <label for="max_preco">Máximo:</label>
+        <input type="number" id="preco_max" name="preco_max" value="{{ preco_max }}" step="0.01" min="0"
+          style="width: 40%;">
+        <button type="submit" class="btn-pesquisa" style="margin-bottom:5%;">Filtrar</button>
+        <p>Marcas</p>
+        <input type="checkbox" id="samsung" name="marcas" value="samsung" {% if 'samsung' in marcas_selecionadas
+          %}checked{% endif %}>
+        <label for="samsung">Samsung</label>
+        <br>
 
+        <input type="checkbox" id="apple" name="marcas" value="apple" {% if 'apple' in marcas_selecionadas %}checked{%
+          endif %}>
+        <label for="apple">Apple</label>
+        <br>
+
+        <input type="checkbox" id="motorola" name="marcas" value="motorola" {% if 'motorola' in marcas_selecionadas
+          %}checked{% endif %}>
+        <label for="motorola">Motorola</label>
+        <br>
+
+        <input type="checkbox" id="dell" name="marcas" value="dell" {% if 'dell' in marcas_selecionadas %}checked{%
+          endif %}>
+        <label for="dell">Dell</label>
+        <br>
+
+        <input type="checkbox" id="lenovo" name="marcas" value="lenovo" {% if 'lenovo' in marcas_selecionadas
+          %}checked{% endif %}>
+        <label for="lenovo">Lenovo</label>
+        <br>
+
+        <input type="hidden" name="query" value="{{ request.GET.query }}">
+        <input type="hidden" name="categoria" value="{{ request.GET.categoria }}">
+        {% for marca in marcas_selecionadas %}
+        <input type="hidden" name="marcas" value="{{ marca }}">
+        {% endfor %}
+      </form>
+    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="{% static 'myapp/js/scripts.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      $('input[type="checkbox"]').change(function () {
+        $('#filter-form').submit();
+      });
+    });
+  </script>
 
 
 </body>

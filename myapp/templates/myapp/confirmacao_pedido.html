@@ -3,14 +3,58 @@
 <html>
 <head>
     <title>Confirmação de Pedido</title>
-    <link href="https://stackpath.bootstrap.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/styles.css' %}">
+    <style>
+        p{
+            color:#ccc;
+            font-weight: 200 !important;
+            font-size: 150%;
+        }
+
+        h1{
+            color:#5CD85A;
+        }
+
+        .btn-voltar{
+            border: solid 2px;
+            border-radius: 35px;
+            color: #08313A;
+            background-color: #5CD85A;
+            border-color: #5CD85A;
+            font-size: 14;
+            font-weight: 700;
+            width: fit-content;
+            padding: 1% ;   
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 3px 6px 0 rgba(105, 221, 144, 0.205), 0 4px 16px 0 rgba(105, 221, 144, 0.26);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-voltar:hover{
+            transform: scale(1.05);
+            box-shadow: 0 4px 7px 0 rgba(105, 221, 144, 0.4), 0 5px 20px 0 rgba(105, 221, 144, 0.52);
+        }
+
+        .container{
+            display:flex;
+            margin:7%;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+
+
+
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Pedido Realizado com Sucesso!</h1>
         <p>Seu pedido foi realizado com sucesso e está sendo processado.</p>
-        <a href="{% url 'home' %}" class="btn btn-primary">Voltar para a Loja</a>
+        <a href="{% url 'home' %}" class="btn-voltar">Voltar para a Loja</a>
     </div>
 </body>
 </html>

@@ -2,16 +2,13 @@
 {% load cart_filters %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Carrinho</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/styles.css' %}">
-    <script>
-        function showAlert(){
-            alert("Compra realizada com sucesso!");
-        }
-    </script>
 </head>
+
 <body>
 
     <div class="container-cart">
@@ -27,23 +24,26 @@
             </thead>
             <tbody>
                 {% for produto in produtos %}
-                    <tr>
-                        <td>{{ produto.nome }}</td>
-                        <td>
-                            <form method="post" action="{% url 'atualizar_quantidade' produto.id %}">
-                                {% csrf_token %}
-                                <input type="number" class="update-cart" name="quantidade" value="{{ carrinho|get_item:produto.id }}" min="1">
-                                <button type="submit" class="btn-update-cart">Atualizar</button>
-                            </form>
-                        </td>
-                        <td>R${{ produto.preco }}</td>
-                        <td>R${% get_total produto carrinho %}</td>
-                        <td>
-                            <a href="{% url 'remover_do_carrinho' produto.id %}" ><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                              </svg></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>
+                        <form method="post" action="{% url 'atualizar_quantidade' produto.id %}">
+                            {% csrf_token %}
+                            <input type="number" class="update-cart" name="quantidade"
+                                value="{{ carrinho|get_item:produto.id }}" min="1">
+                            <button type="submit" class="btn-update-cart">Atualizar</button>
+                        </form>
+                    </td>
+                    <td>R${{ produto.preco }}</td>
+                    <td>R${% get_total produto carrinho %}</td>
+                    <td>
+                        <a href="{% url 'remover_do_carrinho' produto.id %}"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="25" height="25" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                            </svg></a>
+                    </td>
+                </tr>
                 {% endfor %}
                 <tr>
                     <td colspan="3"></td>
@@ -53,9 +53,9 @@
         </table>
         <div class="button-cart">
             <a href="{% url 'home' %}" class="btn-cart">Continuar Comprando</a>
-            <form method="post" action="{% url 'finalizar_pedido' %}" style="display:inline;">
+            <form method="post" action="{% url 'finalizar_pedido' %}">
                 {% csrf_token %}
-                <button type="submit" class="btn-cart" onclick="showAlert()">Finalizar</button>
+                <button type="submit" class="btn-cart">Finalizar</button>
             </form>
         </div>
     </div>
@@ -64,4 +64,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
