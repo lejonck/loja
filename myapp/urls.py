@@ -1,7 +1,8 @@
-
-
 from django.urls import path
 from . import views
+
+#As URLs são mapeadas para as views correspondentes
+#'path' é a função que define padrões de url. Quando essa URL especificada for chamada, direciona para a view correspondente
 
 urlpatterns = [
     path('', views.home_view, name='home'),
