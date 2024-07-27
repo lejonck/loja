@@ -213,10 +213,23 @@ p {
 }
 
 .imagem-prod {
+    width: 300px !important;
+    height: 300px !important;
+    overflow: hidden;
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin: 30px;
+    align-items: center;
+    margin-bottom: 10%;
+   
+    
+}
+
+.imagem-prod img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    
 }
 
 /*---------------------------------- Página Carrinho de Compras -------------------------------*/
@@ -230,7 +243,7 @@ p {
     font-size: 14;
     font-weight: 700;
     width: fit-content;
-    padding: 1% !important;
+    padding: .5% !important;
     margin: 10px;
     text-align: center;
     text-decoration: none;

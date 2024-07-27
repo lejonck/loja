@@ -2,36 +2,52 @@ from django.shortcuts import render, redirect
 from django.db import transaction
 from .models import Produto, Pedido, ItemPedido
 from django.shortcuts import render, get_object_or_404
+from django import forms
 
 #As views recebem um request como entrada e devolvem um response. Geralmente interagem com os models, 
 #e podem renderizar templates HTML, além de outros tipos de resposta gerados
 #Foram usadas as function-based views, que são funções em python que recebem um objeto HttpRequest e retornam um HttpResponse
 
+#Formulário que usa o widget de CheckboxSeelectMultiple para escolher as marcas
+class FiltroMarcaForm(forms.Form):
+    MARCAS_CHOICES = [
+        ('samsung', 'Samsung'),
+        ('apple', 'Apple'),
+        ('motorola', 'Motorola'),
+        ('lenovo', 'Lenovo'),
+        ('dell', 'Dell')
+    ]
+    
+    marcas = forms.MultipleChoiceField(
+        choices=MARCAS_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
 
 def home_view(request):
+    #Recebe os dados do request
     categoria = request.GET.get('categoria')
     query = request.GET.get('query')
-    marcas = request.GET.getlist('marcas')
+    form = FiltroMarcaForm(request.GET or None)
     preco_max = request.GET.get('preco_max')
 
     produtos = Produto.objects.all()
-    marcas_unicas = list(set(marcas))
-    
-    contagem_marcas = {marca: marcas.count(marca) for marca in marcas_unicas}
-    marcas_impares = [marca for marca, contagem in contagem_marcas.items() if contagem % 2 != 0]
 
+    #Filtra pelos dados informados
     if categoria:
         produtos = produtos.filter(categoria=categoria)     
     if query:
         produtos = produtos.filter(nome__icontains=query)
     if preco_max:
         produtos = produtos.filter(preco__lte=preco_max)
-    if marcas:  
-        produtos = produtos.filter(marca__in=marcas_impares)   
-    
-    return render(request, 'myapp/home.html', {'produtos': produtos, 'tem_produtos': produtos.exists(), 'marcas_selecionadas' : marcas_impares})
+    if form.is_valid():
+        marcas_selecionadas = form.cleaned_data.get('marcas')
+        if marcas_selecionadas:
+            produtos = produtos.filter(marca__in=marcas_selecionadas)   
+    #Renderiza o temlpate da home com o contexto dos produtos filtrados, o form e um booleano sehá ou não produtos
+    return render(request, 'myapp/home.html', {'produtos': produtos, 'form': form, 'tem_produtos': produtos.exists()})
 
-#recebe o request com os dados da requisição http e o id do produto específico
+#Recebe o request com os dados da requisição http e o id do produto específico
 def produto_detalhes_view(request, produto_id):
     #Recupera o produto, ou retorna uma página 404 de erro se não encotrar
     produto = get_object_or_404(Produto, id=produto_id)

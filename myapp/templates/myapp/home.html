@@ -101,35 +101,12 @@
           style="width: 40%;">
         <button type="submit" class="btn-pesquisa" style="margin-bottom:5%;">Filtrar</button>
         <p>Marcas</p>
-        <input type="checkbox" id="samsung" name="marcas" value="samsung" {% if 'samsung' in marcas_selecionadas %}checked{% endif %}>
-        <label for="samsung">Samsung</label>
-        <br>
 
-        <input type="checkbox" id="apple" name="marcas" value="apple" {% if 'apple' in marcas_selecionadas %}checked{%
-          endif %}>
-        <label for="apple">Apple</label>
-        <br>
-
-        <input type="checkbox" id="motorola" name="marcas" value="motorola" {% if 'motorola' in marcas_selecionadas
-          %}checked{% endif %}>
-        <label for="motorola">Motorola</label>
-        <br>
-
-        <input type="checkbox" id="dell" name="marcas" value="dell" {% if 'dell' in marcas_selecionadas %}checked{%
-          endif %}>
-        <label for="dell">Dell</label>
-        <br>
-
-        <input type="checkbox" id="lenovo" name="marcas" value="lenovo" {% if 'lenovo' in marcas_selecionadas
-          %}checked{% endif %}>
-        <label for="lenovo">Lenovo</label>
-        <br>
+        {{ form.as_p }}
 
         <input type="hidden" name="query" value="{{ request.GET.query }}">
         <input type="hidden" name="categoria" value="{{ request.GET.categoria }}">
-        {% for marca in marcas_selecionadas %}
-        <input type="hidden" name="marcas" value="{{ marca }}">
-        {% endfor %}
+
       </form>
     </div>
   </div>
