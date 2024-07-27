@@ -5,9 +5,9 @@ Este é o projeto da loja virtual de equipamentos eletrônicos Grace.
 
 ## Tecnologias Usadas
 
-- **Python**: Linguagem de programação principal usada no desenvolvimento do backend.
+- **Python**: Linguagem de programação usada no desenvolvimento do backend.
 - **Django**: Framework web usado para construir a aplicação.
-- **MySQL**: Banco de dados relacional usado para armazenar informações sobre produtos, pedidos e usuários.
+- **MySQL**: Banco de dados relacional usado para armazenar informações sobre produtos e pedidos.
 - **HTML/CSS**: Linguagens de marcação e estilização usadas para construir o frontend.
 - **Bootstrap**: Framework CSS usado para facilitar o design.
 
