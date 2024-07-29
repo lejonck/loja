@@ -55,7 +55,7 @@
             <a href="{% url 'home' %}" class="btn-cart">Continuar Comprando</a>
             <form method="post" action="{% url 'finalizar_pedido' %}">
                 {% csrf_token %}
-                <button type="submit" class="btn-cart">Finalizar</button>
+                <button type="submit" class="btn-cart" style="padding: 1%;">Finalizar</button>
             </form>
         </div>
     </div>
